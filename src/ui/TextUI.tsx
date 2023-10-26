@@ -2,28 +2,37 @@ import React from 'react'
 import { StyleSheet, Text } from 'react-native';
 
 interface IProps {
-    text: string,
-    type: '' | '' | ''
+    children: string,
+    type: 'header' | 'title' | 'label'
 }
 
 function TextUI({
-    text,
+    children,
     type,
 }) {
     return (
-        <Text style={
-            styles.text
-        }
-        >
-
+        <Text style={s[type]}>
+            {children}
         </Text>
     );
 }
 
 export default TextUI;
 
-const styles = StyleSheet.create({
-    text: {
-
+const s = StyleSheet.create({
+    header: {
+        fontSize: 28,
+        fontWeight: '600',
+        color: '#122429'
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: '#000000'
+    },
+    labe: {
+        fontSize: 12,
+        fontWeight: '500',
+        color: '#242424'
     }
 })
