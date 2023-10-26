@@ -2,11 +2,22 @@ import React, { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import InputUI from '../ui/InputUI';
 import TextUI from '../ui/TextUI';
+import network from '../common/services/network'
+import writeToken from '../common/services/writeToken';
 
-function AuthScreen() {
+interface IProps {
+    setAuthenticated: (value: boolean) => void;
+}
+
+function AuthScreen({ setAuthenticated }: IProps) {
 
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
+
+    const sendLogin = async () => {
+        const token = await network.post.login(userName, userPassword);
+        setAuthenticated(true); 
+    }
 
     return (  
         <View style={s['container']}>
@@ -21,7 +32,7 @@ function AuthScreen() {
                 value={userPassword}
                 placeholder="Пароль"
             />
-            <Button title="Войти"/>
+            <Button onPress={sendLogin} title="Войти"/>
         </View>
     );
 }

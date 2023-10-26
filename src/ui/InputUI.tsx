@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, TextInput} from 'react-native';
 
 interface IProps {
-    onChangeText: () => void;
+    onChangeText: (text: string) => void;
     value: string;
     placeholder: string;
     width?: number;

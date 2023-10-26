@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 import useAuth from './src/common/hooks/useAuth';
@@ -13,6 +14,7 @@ export default function App() {
 
   const Tab = createBottomTabNavigator();
   const { isLoading, isAuthenticated } = useAuth(); 
+  const [authenticated, setAuthenticated] = useState(false); 
 
   if (isLoading) {
     return (
@@ -25,13 +27,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1 }}>
-        {isAuthenticated ? (
+        {authenticated ? ( // Если пользователь авторизован, показываем другой экран
           <Tab.Navigator>
             <Tab.Screen name="Shop" component={ShopScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
           </Tab.Navigator>
         ) : (
-          <AuthScreen />
+          <AuthScreen setAuthenticated={setAuthenticated} /> // Передаем функцию для установки флага авторизации
         )}
       </SafeAreaView>
     </NavigationContainer>
