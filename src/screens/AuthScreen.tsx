@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 function AuthScreen() {
     return (  
         <View>
-            <Text>Auth Screen</Text>
+            <Text>Authori</Text>
         </View>
     );
 }

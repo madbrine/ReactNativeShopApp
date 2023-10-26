@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { MMKV } from 'react-native-mmkv';
+import * as FileSystem from 'expo-file-system';
 
-const authStorage = new MMKV()
+const AUTH_FILE_URI = `${FileSystem.documentDirectory}auth.json`;
 
 const useAuth = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -10,8 +10,13 @@ const useAuth = () => {
     useEffect(() => {
         const checkAuthStatus = async () => {
             try {
-                const userToken = await authStorage.getString('userToken'); // Проверяем, есть ли токен пользователя в MMKV
-                setIsAuthenticated(userToken !== null);
+                const authFile = await FileSystem.getInfoAsync(AUTH_FILE_URI);
+                if (authFile.exists) {
+                    const authData = await FileSystem.readAsStringAsync(AUTH_FILE_URI);
+                    const { isAuthenticated } = JSON.parse(authData);
+                    setIsAuthenticated(isAuthenticated);
+                }
+
                 setIsLoading(false);
             } catch (error) {
                 console.error('Ошибка при проверке авторизации:', error);

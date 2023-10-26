@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 import useAuth from './src/common/hooks/useAuth';
 import AuthScreen from './src/screens/AuthScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import ShopScreen from './src/screens/ShopScreen';
 
 export default function App() {
 
